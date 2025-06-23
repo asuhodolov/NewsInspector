@@ -6,12 +6,15 @@
 //
 
 import SwiftUI
+import Root
 
 @main
 struct NewsInspectorApp: App {
+    let appCoordinator = AppCoordinator()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            AnyView(appCoordinator.makeRootView())
         }
     }
 }

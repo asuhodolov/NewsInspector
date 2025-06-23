@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		00E1994E2E0986580010F458 /* Root in Frameworks */ = {isa = PBXBuildFile; productRef = 00E1994D2E0986580010F458 /* Root */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		00E1992F2E0982930010F458 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -27,6 +31,7 @@
 		00E199212E0982910010F458 /* NewsInspector.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewsInspector.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E1992E2E0982930010F458 /* NewsInspectorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NewsInspectorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E199382E0982930010F458 /* NewsInspectorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NewsInspectorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E1994B2E0982B00010F458 /* Modules */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Modules; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -52,6 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				00E1994E2E0986580010F458 /* Root in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,8 +82,10 @@
 			isa = PBXGroup;
 			children = (
 				00E199232E0982910010F458 /* NewsInspector */,
+				00E1994B2E0982B00010F458 /* Modules */,
 				00E199312E0982930010F458 /* NewsInspectorTests */,
 				00E1993B2E0982930010F458 /* NewsInspectorUITests */,
+				00E1994C2E0986580010F458 /* Frameworks */,
 				00E199222E0982910010F458 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -90,6 +98,13 @@
 				00E199382E0982930010F458 /* NewsInspectorUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		00E1994C2E0986580010F458 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -112,6 +127,7 @@
 			);
 			name = NewsInspector;
 			packageProductDependencies = (
+				00E1994D2E0986580010F458 /* Root */,
 			);
 			productName = NewsInspector;
 			productReference = 00E199212E0982910010F458 /* NewsInspector.app */;
@@ -405,6 +421,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -413,7 +430,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.noooo.NewsInspector;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -433,6 +450,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -441,7 +459,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.noooo.NewsInspector;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -558,6 +576,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		00E1994D2E0986580010F458 /* Root */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Root;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 00E199192E0982910010F458 /* Project object */;
 }
