@@ -18,15 +18,15 @@ enum NewsError: Error {
 //MARK: - Disk storage
 
 private func prepareDiskDataForPagination(
-    articles: [Article],
+    articles: [Story],
     offset: Int,
     limit: Int
-) -> [Article] {
+) -> [Story] {
     guard articles.isEmpty == false else {
         return []
     }
     
-    var preparedArticles: [Article] = []
+    var preparedArticles: [Story] = []
     for i in offset..<limit+offset {
         let indexInArray = i % articles.count
         var article = articles[indexInArray]
@@ -39,7 +39,7 @@ private func prepareDiskDataForPagination(
 @MainActor
 public final class NewsDiskProvider: NewsProviderProtocol {
     private struct ArticlesResponseData: Decodable {
-        let articles: [Article]
+        let articles: [Story]
         
         enum CodingKeys: String, CodingKey {
             case articles = "articles"
@@ -52,7 +52,7 @@ public final class NewsDiskProvider: NewsProviderProtocol {
         self.likesRepository = likesRepository
     }
     
-    public func retrieveNews(offset: Int, limit: Int) async throws -> [Article] {
+    public func retrieveNews(offset: Int, limit: Int) async throws -> [Story] {
         guard let url = Bundle.module.url(forResource: "articles", withExtension: "json") else {
             throw NewsError.decodingError
         }
@@ -86,7 +86,7 @@ public final class NewsDiskProvider: NewsProviderProtocol {
 //NewsWebProvider is present just for a demo purpose
 public final class NewsWebProvider: NewsProviderProtocol {
     private struct ArticlesResponseData: Decodable {
-        let articles: [Article]
+        let articles: [Story]
         
         enum CodingKeys: String, CodingKey {
             case articles = "articles"
@@ -99,7 +99,7 @@ public final class NewsWebProvider: NewsProviderProtocol {
         self.webApiManager = webApiManager
     }
     
-    public func retrieveNews(offset: Int, limit: Int) async throws -> [Article] {
+    public func retrieveNews(offset: Int, limit: Int) async throws -> [Story] {
         let newsData: ArticlesResponseData = try await webApiManager.perform(
             NewsRequest.retrieveNews(offset: offset, limit: limit),
             parser: NewsRequestDataParser())
@@ -117,34 +117,34 @@ private class NewsRequestDataParser: DataParserProtocol {
 //MARK: - News provider stab
 
 final class NewsProviderStub: NewsProviderProtocol {
-    func retrieveNews(offset: Int, limit: Int) async throws -> [Article] {
+    func retrieveNews(offset: Int, limit: Int) async throws -> [Story] {
         try await Task.sleep(for: .seconds(1))
         return [
-            Article(
+            Story(
                 id: 1,
                 imageUrlString: "https://picsum.photos/400/200?random=1",
                 text: "Text1",
                 isLiked: false
             ),
-            Article(
+            Story(
                 id: 2,
                 imageUrlString: "https://picsum.photos/400/200?random=2",
                 text: "Text2",
                 isLiked: true
             ),
-            Article(
+            Story(
                 id: 3,
                 imageUrlString: "https://picsum.photos/400/200?random=3",
                 text: "Text3",
                 isLiked: false
             ),
-            Article(
+            Story(
                 id: 4,
                 imageUrlString: "https://picsum.photos/400/200?random=4",
                 text: "Text4 Long Text4 Long Text4 Long Text4 Long Text4 Long Text4 Long Text4 Long Text4 Long Text4 Long Text4 Long",
                 isLiked: false
             ),
-            Article(
+            Story(
                 id: 5,
                 imageUrlString: "https://picsum.photos/400/200?random=5",
                 text: "Text5",

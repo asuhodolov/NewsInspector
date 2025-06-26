@@ -9,6 +9,7 @@ import Foundation
 
 public class Constants {
     public static let articleLikesFileName = "articleLikesFileName"
+    public static let storySeenFileName = "storySeenFileName"
     
     private init() {}
 }

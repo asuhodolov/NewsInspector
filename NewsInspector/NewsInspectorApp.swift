@@ -10,11 +10,12 @@ import Root
 
 @main
 struct NewsInspectorApp: App {
-    let appCoordinator = AppCoordinator()
+    @StateObject
+    var appCoordinator = AppCoordinator()
     
     var body: some Scene {
         WindowGroup {
-            AnyView(appCoordinator.makeRootView())
+            appCoordinator.rootView
         }
     }
 }

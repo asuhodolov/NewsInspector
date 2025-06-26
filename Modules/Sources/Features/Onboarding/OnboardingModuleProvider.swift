@@ -1,5 +1,5 @@
 //
-//  NewsFeedModuleProvider.swift
+//  OnboardingModuleProvider.swift
 //  NewsViewer
 //
 //  Created by Alexander Suhodolov on 23/06/2025.
@@ -10,8 +10,8 @@ import AppFoundation
 import OnboardingShared
 import SwiftUI
 
-extension ModuleProvider: OnboardingModuleProviderProtocol {
-    public func makeOnboardingModule(injection: any OnboardingModuleInjectionProtocol) -> any View {
-        AnyView(Onboarding(newsFeedBuilder: injection.newsFeedBuilder))
+extension ModuleProvider {
+    public static func makeOnboardingModule(injection: any OnboardingModuleInjectionProtocol) -> any View {
+        Onboarding(newsFeedPresenter: injection.newsFeedPresenter)
     }
 }

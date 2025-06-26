@@ -7,13 +7,13 @@
 
 import Foundation
 import SwiftUI
+import OnboardingShared
 
 public struct Onboarding: View {
-    @State private var showNewsFeed = false
-    private let newsFeedBuilder: () -> any View
+    private let newsFeedPresenter: NewsFeedPresenter
     
-    public init(newsFeedBuilder: @escaping () -> any View) {
-        self.newsFeedBuilder = newsFeedBuilder
+    public init(newsFeedPresenter: NewsFeedPresenter) {
+        self.newsFeedPresenter = newsFeedPresenter
     }
     
     public var body: some View {
@@ -24,13 +24,10 @@ public struct Onboarding: View {
                 .multilineTextAlignment(.center)
                 .padding()
             
-            Button("Go To NewsFeed") {
-                showNewsFeed = true
+                Button("Go To NewsFeed") {
+                    newsFeedPresenter.presentNewsFeed()
+                }
+                .buttonStyle(.borderedProminent)
             }
-            .buttonStyle(.borderedProminent)
-        }
-        .fullScreenCover(isPresented: $showNewsFeed) {
-            AnyView(newsFeedBuilder())
-        }
     }
 }

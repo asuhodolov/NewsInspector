@@ -9,66 +9,85 @@ import SwiftUI
 
 public struct AsyncImageView: View {
     public var url: String?
-    public var width: CGFloat
-    public var height: CGFloat
+    private let contetnMode: ContentMode
     
-    public init(url: String?, width: CGFloat, height: CGFloat) {
+    public init(
+        url: String?,
+        contentMode: ContentMode = .fit
+    ) {
         self.url = url
-        self.width = width
-        self.height = height
+        self.contetnMode = contentMode
     }
     
     public var body: some View {
-        Group {
-            if let url = url, let imageURL = URL(string: url) {
-                AsyncImage(url: imageURL) { image in
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: width, height: height)
-                        .clipped()
-                        .cornerRadius(12)
-                } placeholder: {
-                    RoundedRectangle(cornerRadius: 12)
-                        .fill(Color.gray.opacity(0.2))
-                        .frame(width: width, height: height)
-                        .overlay(
-                            ProgressView()
-                        )
-                }
-            } else {
+        if let urlString = url,
+           let imageURL = URL(string: urlString
+           ) {
+            AsyncImage(url: imageURL) { image in
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(
+                        maxWidth: .infinity,
+                        maxHeight: .infinity)
+                    .clipped()
+            } placeholder: {
                 RoundedRectangle(cornerRadius: 12)
                     .fill(Color.gray.opacity(0.2))
-                    .frame(width: width, height: height)
                     .overlay(
-                        Image(systemName: "photo")
-                            .font(.system(size: 30))
-                            .foregroundColor(.gray)
+                        ProgressView()
                     )
             }
+            .padding(.vertical)
+        } else {
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color.gray.opacity(0.2))
+                .overlay(
+                    Image(systemName: "photo")
+                        .font(.system(size: 30))
+                        .foregroundColor(.gray)
+                )
+                .frame(minHeight: 100)
+                .padding(.vertical)
         }
+        
+//        if let url = url, let imageURL = URL(string: url) {
+//            AsyncImage(url: imageURL) { image in
+//                image
+//                    .resizable()
+//                    .aspectRatio(contentMode: .fill)
+//                    .frame(
+//                        maxWidth: .infinity,
+//                        maxHeight: .infinity)
+//                    .clipped()
+//                    .cornerRadius(12)
+//            } placeholder: {
+//                RoundedRectangle(cornerRadius: 12)
+//                    .fill(Color.gray.opacity(0.2))
+//                    .overlay(
+//                        ProgressView()
+//                    )
+//            }
+//        } else {
+//            RoundedRectangle(cornerRadius: 12)
+//                .fill(Color.gray.opacity(0.2))
+//                .frame(minHeight: 100)
+//                .overlay(
+//                    Image(systemName: "photo")
+//                        .font(.system(size: 30))
+//                        .foregroundColor(.gray)
+//                )
+//        }
     }
 }
 
 #Preview {
     VStack(spacing: 16) {
-        AsyncImageView(
-            url: "https://picsum.photos/400/200?random=1",
-            width: 350,
-            height: 180
-        )
+        AsyncImageView(url: "https://picsum.photos/400/200?random=1")
         
-        AsyncImageView(
-            url: nil,
-            width: 350,
-            height: 180
-        )
+        AsyncImageView(url: nil)
         
-        AsyncImageView(
-            url: "invalid-url",
-            width: 350,
-            height: 180
-        )
+        AsyncImageView(url: "invalid-url")
     }
     .padding()
 }

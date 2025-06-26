@@ -12,15 +12,13 @@ import OnboardingShared
 import SwiftUI
 
 struct OnboardingModuleInjection: OnboardingModuleInjectionProtocol {
-    var newsFeedBuilder: () -> any View
+    var newsFeedPresenter: NewsFeedPresenter {
+        appCoordinator
+    }
     
     private let appCoordinator: AppCoordinatorProtocol
     
-    init(
-        appCoordinator: AppCoordinatorProtocol,
-        newsFeedBuilder: @escaping () -> any View
-    ) {
+    init(appCoordinator: AppCoordinatorProtocol) {
         self.appCoordinator = appCoordinator
-        self.newsFeedBuilder = newsFeedBuilder
     }
 }

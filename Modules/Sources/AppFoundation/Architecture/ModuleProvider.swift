@@ -8,6 +8,11 @@
 import Foundation
 
 @MainActor
-public class ModuleProvider {
-    public init() {}
+public final class ModuleProvider {
+    private init() {}
 }
+
+public typealias CaptureViewModel = (_ viewModel: any ViewModel) -> Void
+
+@MainActor
+public protocol ViewModel: ObservableObject {}

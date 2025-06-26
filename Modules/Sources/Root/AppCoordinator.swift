@@ -6,50 +6,49 @@
 //
 
 import Foundation
-import Services
-import NewsFeed
-import NewsFeedShared
 import SwiftUI
 import AppFoundation
 import Onboarding
+import OnboardingShared
+import NewsFeed
+import NewsFeedShared
 
 @MainActor
-public protocol AppCoordinatorProtocol {
+protocol AppCoordinatorProtocol: NewsFeedPresenter, OnboardingPresenter {
     var services: Services { get }
 }
 
 @MainActor
-public final class AppCoordinator: AppCoordinatorProtocol {
-    public let services = Services()
-    private let moduleProvider = ModuleProvider()
+public final class AppCoordinator: AppCoordinatorProtocol, ObservableObject {
+    let services = Services()
+
+    @Published
+    public var rootView: AnyView?
     
-    public func makeRootView() -> any View {
-        moduleProvider.makeOnboardingModule(
-            injection: OnboardingModuleInjection(
-                appCoordinator: self,
-                newsFeedBuilder: {
-                    self.moduleProvider.makeNewsFeedModule(injection: NewsFeedModuleInjection(appCoordinator: self))
-                }))
+    private var activeViewModel: (any ViewModel)?
+        
+    public init() {
+        presentOnboarding()
     }
-    
-    public init() {}
 }
 
-@MainActor
-public final class Services {
-    lazy var webApiManager: some WebAPIManagerProtocol = {
-        WebAPIManager()
-    }()
-    
-    lazy var newsProvider: some NewsProviderProtocol = {
-        NewsDiskProvider(likesRepository: self.likedArticlesFileRepository)
-    }()
-    
-    lazy var likeService: some LikeServiceProtocol = {
-        LikeService(likesRepository: self.likedArticlesFileRepository)
-    }()
-    
-    lazy var likedArticlesFileRepository: some ResourceStorable<Set<Int>> = {
-        JSONFileRepository()
-    }()
+//MARK: - NewsFeedPresenter
+
+extension AppCoordinator: NewsFeedPresenter {
+    public func presentNewsFeed() {
+        rootView = AnyView(ModuleProvider.makeNewsFeedModule(
+            injection: NewsFeedModuleInjection(
+                appCoordinator: self,
+                captureViewModel: {
+                    self.activeViewModel = $0
+                })))
+    }
+}
+
+//MARK: - OnboardingPresenter
+
+extension AppCoordinator: OnboardingPresenter {
+    public func presentOnboarding() {
+        rootView = AnyView(ModuleProvider.makeOnboardingModule(injection: OnboardingModuleInjection(appCoordinator: self)))
+    }
 }

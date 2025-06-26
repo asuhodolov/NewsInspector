@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Article: Codable, Identifiable {
+public struct Story: Codable, Identifiable {
     public var id: Int
     public var imageUrlString: String?
     public var text: String?
